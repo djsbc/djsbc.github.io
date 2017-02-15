@@ -23,6 +23,14 @@
 <script src="../icheck/icheck.js"></script>
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+.intro{
+	font-size:18px;
+	line-height:36px;
+}
+</style>
+
 </head>
 
 <body>
@@ -48,7 +56,46 @@
 	<p><span id="info">請注意，<b style="color:red;">您未填寫匯款資料</b>，因此報名手續尚未完成! 請您在匯款後至本網站「<a href="../#remittance" target="_blank">填寫匯款資料</a>」頁面填寫匯款帳號後四碼，以完成報名手續。</span></p>
 </span>
 
-<div id="cover" style="margin-top:20px;">
+<div id="cover">
+	<p style="text-align:right;"><a href="javascript:void(0);" id="hindIntro" class="button button-rounded button-flat-primary">隱藏說明</a></p>
+	<span class="intro" id="intro">
+		<div style="background-color:rgb(240,240,240);margin-bottom:10px;">
+			<p>若您想採用「親自報名」的方式報名，請下載空白報名表，並按照比賽簡章中「親自報名」條目所規範之方式報名。</p>
+			<p style="text-align:center;"><a href="../files/2017-HAC-Softball-form.pdf" target="_blank" class="button button-rounded button-flat-caution"><i class="uk-icon-cloud-download"></i> 下載空白報名表</a></p>
+		</div>
+		<br/>
+		<h2>您正在使用 : 2017年 第5屆永信HAC健康盃慢速壘球邀請賽 - 線上報名表</h2>
+		<p>提醒您，在報名前請先詳閱<a target="_blank" href="../#home">比賽簡章</a>、報名須知以及系統使用須知。</p>
+		<h3><b>報名須知</b></h3>
+		<ul>
+			<li>請填希望參賽組別(健康、快樂、休閒、友誼)，參賽組別最終由大會審定。</li>
+			<li>每隊最多以25位球員報名參賽。</li>
+			<li>領隊、教練為球員時，需登錄至球員名單，未登錄者不得出賽。</li>
+			<li>親自報名時填妥後本表交付大甲慢壘會，並同時繳交報名費始完成報名。</li>
+			<li>通訊報名及網路報名請附匯款證明始完成報名。</li>
+			<li>請注意競賽規章，參加資格相關規定。</li>
+		</ul>
+		<h3><b>系統使用須知</b></h3>
+		<ul>
+			<li>使用網路報名系統報名後，系統將會產生一組「網路報名序號」，請妥善保留該序號以供查詢報名狀態使用。</li>
+			<li style="color:red;">任何人皆可以使用「網路報名序號」查詢隊伍的詳細報名資訊，因此請您妥善保管該序號。</li>
+			<li>網路報名完成後，將會自動產生一份填寫完畢的報名表。此報名表僅供備查使用，不需要交付至主辦單位。</li>
+			<li>若您在填寫下表時尚未匯款，請在送出表單並匯款後依指示至本網站「填寫匯款資料」頁面補齊匯款證明。</li>
+			<li>報名後請務必至本網站「查詢報名狀態」頁面確認您的隊伍是否報名成功，如有錯誤請立即回報給主辦單位。</li>
+			<!--<li style="color:red;">網路報名分為三階段</li>
+			<ol>
+				<li>報名手續尚未完成 : 此狀態代表您尚未填寫報名表中「匯款帳號後四碼」欄位，請您在匯款後向主辦單位出示匯款證明，或是前往本網站「填寫匯款資料」頁面補齊匯款資料。</li>
+				<li>報名手續已完成 : 此狀態代表您已寫報名表中「匯款帳號後四碼」欄位。因為主辦單位尚未審核您的報名資料，因此報名還未成功。主辦單位審核通過後，本系統將會同步更新，因此您可以不定時至本網站「查詢報名狀態」頁面查詢審核進度。</li>
+				<li>報名完成 : 此狀態代表您的隊伍已通過大會審核，正式報名成功。</li>
+			</ol>-->
+			<li>若報名系統發生錯誤，煩請至<a href="https://www.facebook.com/HACSoftball/" target="_blank">「永信HAC健康盃慢速壘球邀請賽Facebook專頁」</a>回報。</li>
+		</ul>
+	</span>
+	
+	<br/>
+	<h2>第5屆永信HAC健康盃慢速壘球邀請賽 - 線上報名表</h2>
+	<br/>
+	
 	<form id="toPost" name="toPost" action="" method="post" class="uk-form">
 		<span style="color: rgb(219, 68, 55); font-family: Roboto, RobotoDraft, Helvetica, Arial, sans-serif; font-size: 15px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); display: inline !important; float: none;">
 		*必填</span><br />
@@ -125,7 +172,7 @@
 		<p style="text-align: center;">
 			<input name="aggree" type="checkbox" id="agree" value="0" />
 			<span class="titleStyle" onclick="$('input#agree')[0].click();">
-				我已詳閱簡章、報名須知以及系統使用須知，並願意遵守上述文件之規定。
+				我已詳閱比賽簡章、報名須知以及系統使用須知，並願意遵守上述文件之規定。
 			</span>
 		</p>
 		<!--<p style="text-align: center; visibility:hidden;"><input type="submit" value="提交" name="submit" id="post"></p>-->
@@ -273,6 +320,17 @@
 			return stringIn;
 		}
 	}
+	
+	//處理隱藏說明
+	$("a#hindIntro").click(function(event){
+		if($("span#intro").is(":visible")){
+			$("span#intro").fadeOut(0);
+			$(this).text("顯示說明");
+		}else{
+			$("span#intro").fadeIn(0);
+			$(this).text("隱藏說明");
+		}
+	});
 	
 	//檢查勾選同意條款
 	$("input#agree").change(function() {

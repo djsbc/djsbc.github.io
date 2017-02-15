@@ -323,11 +323,11 @@
 	
 	//處理隱藏說明
 	$("a#hindIntro").click(function(event){
-		if($("span#tip").is(":visible")){
-			$("span#tip").fadeOut(0);
+		if($("div#tip").is(":visible")){
+			$("div#tip").fadeOut(0);
 			$(this).text("顯示說明");
 		}else{
-			$("span#tip").fadeIn(0);
+			$("div#tip").fadeIn(0);
 			$(this).text("隱藏說明");
 		}
 	});

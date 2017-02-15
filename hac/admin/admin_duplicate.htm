@@ -44,14 +44,30 @@
 	
 	<div id="isLogin" class="uk-width-medium-4-5 uk-container-center main" style="display:none;background-color:rgb(240,240,240); margin-top:20px;">
 		<nav class="uk-navbar" style="margin-top:20px;">
-			<ul id="navUL" class="uk-navbar-nav">
+			<ul id="navUL" class="uk-navbar-nav uk-hidden-small">
 				<li><a href="admin.htm">管理中心首頁</a></li>
 				<li><a href="admin_unfill.htm">尚未填寫匯款資料的隊伍</a></li>
 				<li><a href="admin_wait.htm">正在等候審核的隊伍</a></li>
 				<li class="uk-active"><a href="admin_duplicate.htm">重複報名名單</a></li>
+				<li><a href="admin_accepted.htm">已通過審核的隊伍</a></li>
 				<li><a href="user.htm">登出</a></li>
 			</ul>
+			<a href="#my-id" class="uk-navbar-toggle uk-visible-small" data-uk-offcanvas="{mode:'slide'}">開啟選單 </a>
 		</nav>
+		
+		<div id="my-id" class="uk-offcanvas">
+			<div class="uk-offcanvas-bar">
+				<ul id="navUL" class="uk-navbar-nav">
+					<li style="width:100%;"><a href="admin.htm">管理中心首頁</a></li>
+					<li style="width:100%;"><a href="admin_unfill.htm">尚未填寫匯款資料的隊伍</a></li>
+					<li style="width:100%;"><a href="admin_wait.htm">正在等候審核的隊伍</a></li>
+					<li class="uk-active" style="width:100%;"><a href="admin_duplicate.htm">重複報名名單</a></li>
+					<li style="width:100%;"><a href="admin_accepted.htm">已通過審核的隊伍</a></li>
+					<li style="width:100%;"><a href="user.htm">登出</a></li>
+				</ul>
+			</div>
+		</div>
+		
 		<div class="uk-block uk-width-medium-1-1 uk-container-center">
 			<h2 style="margin-left:5%;">報名列表</h2>
 			

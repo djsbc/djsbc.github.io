@@ -59,7 +59,7 @@
 <div id="cover">
 	<p style="text-align:right;"><a href="javascript:void(0);" id="hindIntro" class="button button-rounded button-flat-primary">隱藏說明</a></p>
 	<span class="intro" id="intro">
-		<div style="background-color:rgb(240,240,240);margin-bottom:10px;">
+		<div id="tip" style="background-color:rgb(240,240,240);margin-bottom:10px;">
 			<p>若您想採用「親自報名」的方式報名，請下載空白報名表，並按照比賽簡章中「親自報名」條目所規範之方式報名。</p>
 			<p style="text-align:center;"><a href="../files/2017-HAC-Softball-form.pdf" target="_blank" class="button button-rounded button-flat-caution"><i class="uk-icon-cloud-download"></i> 下載空白報名表</a></p>
 		</div>
@@ -323,11 +323,11 @@
 	
 	//處理隱藏說明
 	$("a#hindIntro").click(function(event){
-		if($("span#intro").is(":visible")){
-			$("span#intro").fadeOut(0);
+		if($("span#tip").is(":visible")){
+			$("span#tip").fadeOut(0);
 			$(this).text("顯示說明");
 		}else{
-			$("span#intro").fadeIn(0);
+			$("span#tip").fadeIn(0);
 			$(this).text("隱藏說明");
 		}
 	});

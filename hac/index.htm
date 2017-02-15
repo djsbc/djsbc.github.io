@@ -90,19 +90,25 @@
 		}
 	}
 	
-	function changeIframeHeigh(height){
+	function changeIframeHeigh(delay){
 		var iframe = document.getElementById("iframe");
+		if(!delay){
+			delay = 0;
+		}
 		setTimeout(function(){
 			//var h = iframe.contentWindow.document.body.scrollHeight;
 			var h = $(iframe.contentWindow.document).find("html").height();
-			if(height){
+			iframe.height = h + "px";
+			console.log("h " + h);
+			/*if(height){
 				iframe.height = height + "px";
 				//console.log("hei " + height);
-			}else{
-				iframe.height = h + "px";
-				//console.log("h " + h);
-			}
-		}, 50);
+			}else{*/
+				/*$("#iframe").animate({
+					height: h + "px"
+				},50);
+			}*/
+		}, delay);
 	}
 	
 	function changeNav(){
@@ -113,29 +119,29 @@
 	
 	function iframeLoaded(iframe){
 		iframe.on('load', function(){
-        $("span#loading").fadeOut(300, function(){
-			changeIframeHeigh();
-			iframe.fadeIn(500);
-			$("div#fillFooter").show();
-		});
-		
-		var contents = $(this).contents();
-		
-		contents.find('body').on('click', function(){
-			changeIframeHeigh();
-		});
-		
-		contents.on('keyup', function(e) {
-			changeIframeHeigh();
-		});
-		
-		contents.on('keydown', function(e) {
-			changeIframeHeigh();
-		});
-		
-		contents.on('keypress', function(e) {
-			changeIframeHeigh();
-		});
+			$("span#loading").fadeOut(300, function(){
+				$("div#fillFooter").show();
+				changeIframeHeigh();
+				iframe.fadeIn(500);
+			});
+			
+			var contents = $(this).contents();
+			
+			contents.find('body').on('click', function(){
+				changeIframeHeigh();
+			});
+			
+			contents.on('keyup', function(e) {
+				changeIframeHeigh();
+			});
+			
+			contents.on('keydown', function(e) {
+				changeIframeHeigh();
+			});
+			
+			contents.on('keypress', function(e) {
+				changeIframeHeigh();
+			});
 		
 		});
 	}

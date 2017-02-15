@@ -30,14 +30,36 @@
 	</div>
 	
 	<div class="uk-width-medium-1-2 uk-container-center main" style="/*background-color:rgb(240,240,240); margin-top:20px;*/">
-		<nav class="uk-navbar" style="height:40px;margin-top:20px;overflow-x:auto;overflow-y:auto;white-space: nowrap;">
+		<!--<nav class="uk-navbar" style="margin-top:20px;">
 			<ul id="navUL" class="uk-navbar-nav">
-				<li id="nav-home"><a href="#home">首頁</a></li>
-				<li id="nav-form"><a href="#form">報名</a></li>
-				<li id="nav-search"><a href="#search">查詢報名狀態</a></li>
-				<li id="nav-remittance"><a href="#remittance">填寫匯款資料</a></li>
+				<li class="uk-responsive-width" id="nav-home"><a href="#home">首頁</a></li>
+				<li class="uk-responsive-width" id="nav-form"><a href="#form">報名</a></li>
+				<li class="uk-responsive-width" id="nav-search"><a href="#search">查詢報名狀態</a></li>
+				<li class="uk-responsive-width" id="nav-remittance"><a href="#remittance">填寫匯款資料</a></li>
 			</ul>
+		</nav>-->
+		
+		<nav class="uk-navbar" style="margin-top:20px;">
+			<ul class="uk-navbar-nav uk-hidden-small">
+				<li class="uk-responsive-width" id="nav-home"><a href="#home">首頁</a></li>
+				<li class="uk-responsive-width" id="nav-form"><a href="#form">報名</a></li>
+				<li class="uk-responsive-width" id="nav-search"><a href="#search">查詢報名狀態</a></li>
+				<li class="uk-responsive-width" id="nav-remittance"><a href="#remittance">填寫匯款資料</a></li>
+			</ul>
+			<a href="#my-id" class="uk-navbar-toggle uk-visible-small" data-uk-offcanvas="{mode:'slide'}">開啟選單 </a>
 		</nav>
+
+		<div id="my-id" class="uk-offcanvas">
+			<div class="uk-offcanvas-bar">
+				<ul id="navUL" class="uk-navbar-nav">
+					<li id="nav-home" style="width:100%;"><a href="#home">首頁</a></li>
+					<li id="nav-form" style="width:100%;"><a href="#form">報名</a></li>
+					<li id="nav-search" style="width:100%;"><a href="#search">查詢報名狀態</a></li>
+					<li id="nav-remittance" style="width:100%;"><a href="#remittance">填寫匯款資料</a></li>
+				</ul>
+			</div>
+		</div>
+		
 		<span class="loading-use-flexbox" style="margin-top:100px;" id="loading"><div class="loadingImg"></div></span>
 		
 		<div class="uk-block uk-width-medium-1-1 uk-container-center">

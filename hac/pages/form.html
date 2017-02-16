@@ -82,6 +82,7 @@
 			<li>網路報名完成後，將會自動產生一份填寫完畢的報名表。此報名表僅供備查使用，不需要交付至主辦單位。</li>
 			<li>若您在填寫下表時尚未匯款，請在送出表單並匯款後依指示至本網站「填寫匯款資料」頁面補齊匯款證明。</li>
 			<li>報名後請務必至本網站「查詢報名狀態」頁面確認您的隊伍是否報名成功，如有錯誤請立即回報給主辦單位。</li>
+			<li style="color:red;">本系統僅允許補填匯款資料，但不允許修改報名資料。請您在送出表單前詳細確認您的球隊資料!</li>
 			<!--<li style="color:red;">網路報名分為三階段</li>
 			<ol>
 				<li>報名手續尚未完成 : 此狀態代表您尚未填寫報名表中「匯款帳號後四碼」欄位，請您在匯款後向主辦單位出示匯款證明，或是前往本網站「填寫匯款資料」頁面補齊匯款資料。</li>
@@ -95,6 +96,17 @@
 	<br/>
 	<h2>第5屆永信HAC健康盃慢速壘球邀請賽 - 線上報名表</h2>
 	<br/>
+	
+	<div id="teamExisted" class="intro" style="background-color:rgb(240,240,240);margin-bottom:10px;display:none;">
+		<p>隊名 <span style="color:red;" id="spanTeamName"></span> 已經存在! 禁止重複報名!</p>
+		需要協助嗎?
+		<ul>
+			<li><span style="color:blue;">我想要填寫匯款資料</span>&nbsp;:&nbsp;您可以前往本網站「<a href="../#remittance" target="_blank">填寫匯款資料</a>」頁面補齊您的匯款資料。</li>
+			<li><span style="color:blue;">我想要修改報名表</span>&nbsp;:&nbsp;系統禁止修改報名資料，如果您發現報名表內容出現錯誤，請聯繫永信HAC健康盃主辦單位。</li>
+			<li><span style="color:blue;">我想報名多支隊伍</span>&nbsp;:&nbsp;若您的隊伍分為兩隊以上，請您在隊名加上例如A、B或是甲、乙等等文字來區分。</li>
+			<li><span style="color:blue;">不符合上述情況?</span>&nbsp;煩請您聯繫永信HAC健康盃主辦單位。</li>
+		</ul>
+	</div>
 	
 	<form id="toPost" name="toPost" action="" method="post" class="uk-form">
 		<span style="color: rgb(219, 68, 55); font-family: Roboto, RobotoDraft, Helvetica, Arial, sans-serif; font-size: 15px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); display: inline !important; float: none;">
@@ -442,6 +454,10 @@
 				console.log(result);
 				if(result == "false"){
 					$("span#show").html("<p>系統發生錯誤，無法送出資料。請聯絡主辦單位! <a href='javascript:location.reload();'>重新整理</a></p>");
+				}else if(result == "teamExisted"){
+					$("span#intro").hide();
+					$("span#spanTeamName").text(dataObj.teamName);
+					$("div#teamExisted").show();
 				}else{
 					if(dataObj.transferNUM == " "){
 						$("span#status").text("報名手續尚未完成!");

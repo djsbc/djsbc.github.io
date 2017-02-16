@@ -1,0 +1,26 @@
+<html>
+
+<head>
+<script src="https://apis.google.com/js/platform.js?onload=appStart" async defer></script>
+<meta name="google-signin-client_id" content="1068514341308-hmbh0jmrq6fdcph97tqql9v6pl1om6i0.apps.googleusercontent.com">
+</head>
+<body>
+	<div class="g-signin2"></div>
+	
+<script>
+	function onSignIn(googleUser) {
+		lock = true;
+		var profile = googleUser.getBasicProfile();
+		// Do not send to your backend! Use an ID token instead.
+		console.log('ID: ' + profile.getId());
+		var id_token = googleUser.getAuthResponse().id_token;
+		
+		//console.log('Name: ' + profile.getName());
+		//console.log('Image URL: ' + profile.getImageUrl());
+		//console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+        //console.log("ID Token: " + id_token);
+	}
+</script>
+</body>
+
+</html>

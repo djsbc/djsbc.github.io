@@ -78,7 +78,7 @@
 			//console.log('Family Name: ' + profile.getFamilyName());
 			//console.log('Image URL: ' + profile.getImageUrl());
 			console.log('Email: ' + profile.getEmail());
-			$("div#show").html(profile.getEmail() + "歡迎進入管理中心! <br/><p><a href='admin.htm'>進入管理頁面</a></p><br/><a href='#' onclick='signOut();'>登出</a>");
+			$("div#show").html("您目前正以 " + profile.getEmail() + " 登入中<br/><p><a href='admin.htm'>進入管理頁面</a></p><br/><a href='#' onclick='signOut();'>登出</a>");
 		}else{
 			document.location.href="login.htm";
 		}

@@ -458,7 +458,9 @@
 					$("span#intro").hide();
 					$("span#spanTeamName").text(dataObj.teamName);
 					$("div#teamExisted").show();
+					$("a#hindIntro").hide();
 					$("div#cover").fadeIn(500);
+					$("span#show").fadeOut(100);
 				}else{
 					if(dataObj.transferNUM == " "){
 						$("span#status").text("報名手續尚未完成!");

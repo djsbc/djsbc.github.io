@@ -40,7 +40,7 @@
 		</nav>-->
 		
 		<nav class="uk-navbar" style="margin-top:20px;">
-			<ul class="uk-navbar-nav uk-hidden-small">
+			<ul id="navUL" class="uk-navbar-nav uk-hidden-small">
 				<li id="nav-home"><a href="#home">首頁</a></li>
 				<li id="nav-form"><a href="#form">報名</a></li>
 				<li id="nav-search"><a href="#search">查詢報名狀態</a></li>
@@ -52,10 +52,10 @@
 		<div id="my-id" class="uk-offcanvas">
 			<div class="uk-offcanvas-bar">
 				<ul id="navUL" class="uk-navbar-nav">
-					<li id="nav-home" style="width:100%;"><a href="#home">首頁</a></li>
-					<li id="nav-form" style="width:100%;"><a href="#form">報名</a></li>
-					<li id="nav-search" style="width:100%;"><a href="#search">查詢報名狀態</a></li>
-					<li id="nav-remittance" style="width:100%;"><a href="#remittance">填寫匯款資料</a></li>
+					<li id="nav-home-m" style="width:100%;"><a href="#home">首頁</a></li>
+					<li id="nav-form-m" style="width:100%;"><a href="#form">報名</a></li>
+					<li id="nav-search-m" style="width:100%;"><a href="#search">查詢報名狀態</a></li>
+					<li id="nav-remittance-m" style="width:100%;"><a href="#remittance">填寫匯款資料</a></li>
 				</ul>
 			</div>
 		</div>
@@ -137,6 +137,7 @@
 		$("ul#navUL").find(".uk-active").removeClass("uk-active");
 		var navTag = (getUrlTag() == "") ? "home" : getUrlTag();
 		$("li#nav-" + navTag).addClass("uk-active");
+		$("li#nav-" + navTag + "-m").addClass("uk-active");
 	}
 	
 	function iframeLoaded(iframe){

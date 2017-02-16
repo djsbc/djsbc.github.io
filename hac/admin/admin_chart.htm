@@ -1,0 +1,233 @@
+<html>
+
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>永信HAC健康盃慢速壘球邀請賽 管理系統</title>
+
+<!--<link rel="stylesheet" href="../uikit/css/uikit.docs.min.css" />-->
+<link rel="stylesheet" href="../uikit/css/uikit.almost-flat.min.css" />
+<script src="../js/jquery-3.1.1.min.js"></script>
+<script src="../js/md5.js"></script>
+<script src="../uikit/js/uikit.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!--Google-->
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+<script src="./js/initGoogleAPI.js"></script>
+<!--<meta name="google-signin-client_id" content="1068514341308-hmbh0jmrq6fdcph97tqql9v6pl1om6i0.apps.googleusercontent.com">-->
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+<!--custom css-->
+<link rel="stylesheet" href="../css/style.css" />
+<link rel="stylesheet" href="../css/table.css" />
+
+<!--button-->
+<link rel="stylesheet" href="../css/button/css/buttons.css">
+<script type="text/javascript" src="../css/button/js/buttons.js"></script>
+<link rel="stylesheet" href="../css/main-style.css" />
+</head>
+
+<body>
+
+<div class="uk-width-medium-1-1 uk-container-center wrap">
+	
+	<div class="uk-cover-background uk-position-relative indexCoverImage" >
+		<div class="uk-position-cover uk-flex uk-flex-center uk-flex-bottom">
+			<div class="indexCoverTitle">永信HAC健康盃慢速壘球邀請賽 管理系統</div>
+		</div>
+	</div>
+	
+	<div id="unLogin" class="uk-width-medium-4-5 uk-container-center main" style="background-color:rgb(240,240,240); margin-top:20px;">
+		<br/>
+		<span class="loading-use-flexbox"><div class="loadingImg"></div></span>
+		<br/>
+	</div>
+	
+	<div id="isLogin" class="uk-width-medium-4-5 uk-container-center main" style="display:none;background-color:rgb(240,240,240); margin-top:20px;">
+		<nav class="uk-navbar" style="margin-top:20px;">
+			<ul id="navUL" class="uk-navbar-nav uk-hidden-small">
+				<li><a href="admin.htm">管理中心首頁</a></li>
+				<li><a href="admin_unfill.htm">尚未填寫匯款資料的隊伍</a></li>
+				<li><a href="admin_wait.htm">正在等候審核的隊伍</a></li>
+				<li><a href="admin_duplicate.htm">重複報名名單</a></li>
+				<li><a href="admin_accepted.htm">已通過審核的隊伍</a></li>
+				<li class="uk-active"><a href="admin_chart.htm">報名狀況報表</a></li>
+				<li><a href="user.htm">登出</a></li>
+			</ul>
+			<a href="#my-id" class="uk-navbar-toggle uk-visible-small" data-uk-offcanvas="{mode:'slide'}">開啟選單 </a>
+		</nav>
+		
+		<div id="my-id" class="uk-offcanvas">
+			<div class="uk-offcanvas-bar">
+				<ul id="navUL" class="uk-navbar-nav">
+					<li style="width:100%;"><a href="admin.htm">管理中心首頁</a></li>
+					<li style="width:100%;"><a href="admin_unfill.htm">尚未填寫匯款資料的隊伍</a></li>
+					<li style="width:100%;"><a href="admin_wait.htm">正在等候審核的隊伍</a></li>
+					<li style="width:100%;"><a href="admin_duplicate.htm">重複報名名單</a></li>
+					<li style="width:100%;"><a href="admin_accepted.htm">已通過審核的隊伍</a></li>
+					<li class="uk-active" style="width:100%;"><a href="admin_chart.htm">報名狀況報表</a></li>
+					<li style="width:100%;"><a href="user.htm">登出</a></li>
+				</ul>
+			</div>
+		</div>
+		
+		<div class="uk-block uk-width-medium-1-1 uk-container-center">			
+			<span class="loading-use-flexbox" id="loading-list"><div class="loadingImg"></div></span>
+			
+			<div id="list">
+				<div class="use-flexbox"><div id="acceptedChart" style="width: 60%; height: 500px;"></div></div>
+				<div class="use-flexbox"><div id="duplicateChart" style="width: 60%; height: 500px;"></div></div>
+				<div class="use-flexbox"><div id="remittanceChart" style="width: 60%; height: 500px;"></div></div>
+				
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="tm-footer" style="background-color:rgb(90,90,90); margin-top:20px;">
+	<div class="uk-container uk-container-center uk-text-center">
+		<div class="uk-panel">
+			
+		</div>
+		<ul class="uk-subnav uk-subnav-line uk-flex-center subnavStyle" style="margin-top:30px;">
+			<li>Copyright 2017 Li-Xain Chen. All rights reserved.</li>
+		</ul>
+	</div>
+</div>
+
+<script language="javascript">
+	$(document).ready(function(){
+		appStart();
+	});
+	
+	function gapiLoaded(){
+		if (auth2.isSignedIn.get()) {
+			$("#unLogin").hide();
+			$("#isLogin").show();
+			var profile = auth2.currentUser.get().getBasicProfile();
+			var id_token = googleUser.Zi.id_token;
+			
+			/*
+			 *
+			 *Chart Start
+			 *
+			*/
+			google.charts.load("current", {packages:["corechart"]});
+			google.charts.setOnLoadCallback(function(){
+				$.when(getData()).done(function(res){
+					console.log(res);
+					if(res != "false"){
+						var json = jQuery.parseJSON(res);
+						console.log(json);
+						drawAcceptedChart(parseInt(json.acceptedNum), parseInt(json.teamNum) - parseInt(json.acceptedNum));
+						drawDuplicateChart(parseInt(json.playerNum), parseInt(json.duplicateNum));
+						drawRemittanceChart(parseInt(json.payedNum), parseInt(json.teamNum) - parseInt(json.payedNum));
+						$("span#loading-list").fadeOut(200);
+						//$("div#list").fadeIn(200);
+					}else{
+						alert("發生錯誤!");
+						document.location.href="./";
+					}
+				});
+			});
+			
+			/*function drawCharts(){
+				drawAcceptedChart();
+				drawDuplicateChart();
+				drawRemittanceChart();
+			}*/
+			
+			function drawAcceptedChart(accepted, unaccepted) {
+				var data = google.visualization.arrayToDataTable([
+					['狀態', '隊伍數'],
+					['已通過審核',     accepted],
+					['未通過審核',     unaccepted],
+				]);
+
+				var options = {
+					title: '審核概況',
+					backgroundColor: 'rgb(240,240,240)',
+					pieHole: 0.4,
+					titleTextStyle: {
+						fontSize: 36,
+						bold: false,
+					},
+					legendTextStyle: {
+						fontSize: 16,
+					},
+				};
+
+				var chart = new google.visualization.PieChart(document.getElementById('acceptedChart'));
+					chart.draw(data, options);
+			}
+			
+			function drawDuplicateChart(totalPlayerNum, totalDuplicated) {
+				var data = google.visualization.arrayToDataTable([
+					['項目', '人數'],
+					['總報名人數',     totalPlayerNum],
+					['重複出現總數',   totalDuplicated],
+				]);
+
+				var options = {
+					title: '重複報名比率',
+					backgroundColor: 'rgb(240,240,240)',
+					pieHole: 0.4,
+					titleTextStyle: {
+						fontSize: 36,
+						bold: false,
+					},
+					legendTextStyle: {
+						fontSize: 16,
+					},
+				};
+
+				var chart = new google.visualization.PieChart(document.getElementById('duplicateChart'));
+					chart.draw(data, options);
+			}
+			
+			function drawRemittanceChart(payed, unpayed) {
+				var data = google.visualization.arrayToDataTable([
+					['項目', '球隊數'],
+					['已匯款',     payed],
+					['尚未匯款',   unpayed],
+				]);
+
+				var options = {
+					title: '匯款狀況',
+					backgroundColor: 'rgb(240,240,240)',
+					pieHole: 0.4,
+					titleTextStyle: {
+						fontSize: 36,
+						bold: false,
+					},
+					legendTextStyle: {
+						fontSize: 16,
+					},
+				};
+
+				var chart = new google.visualization.PieChart(document.getElementById('remittanceChart'));
+					chart.draw(data, options);
+			}
+			
+			/*
+			 *
+			 *Chart End
+			 *
+			*/
+			
+			function getData(){
+				var id_token = googleUser.Zi.id_token;
+				var dataObj = new Object();
+				dataObj.token = id_token;
+				return $.get("https://script.google.com/macros/s/AKfycbw0QpjVZTYOW20JJyP2ODDs1vkkvIuFDklBu1EApVwjTXg-iuDx/exec",	dataObj);
+			}
+			
+		}else{
+			document.location.href="login.htm";
+		}
+	}
+</script>
+
+</body>
+
+</html>

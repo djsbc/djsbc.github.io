@@ -74,11 +74,11 @@
 		<div class="uk-block uk-width-medium-1-1 uk-container-center">			
 			<span class="loading-use-flexbox" id="loading-list"><div class="loadingImg"></div></span>
 			
-			<div id="list">
-				<div class="use-flexbox"><div id="acceptedChart" style="width: 60%; height: 500px;"></div></div>
-				<div class="use-flexbox"><div id="duplicateChart" style="width: 60%; height: 500px;"></div></div>
-				<div class="use-flexbox"><div id="remittanceChart" style="width: 60%; height: 500px;"></div></div>
-				
+			<div id="list" class="uk-overflow-container" style="display:none;">
+				<div class="use-flexbox"><div id="acceptedChart" style="width: 800px; height: 500px;"></div></div>
+				<div class="use-flexbox"><div id="duplicateChart" style="width: 800px; height: 500px;"></div></div>
+				<div class="use-flexbox"><div id="remittanceChart" style="width: 800px; height: 500px;"></div></div>
+				<div style="height: 50px;"></div>
 			</div>
 		</div>
 	</div>
@@ -112,7 +112,7 @@
 			 *Chart Start
 			 *
 			*/
-			google.charts.load("current", {packages:["corechart"]});
+			/*google.charts.load("current", {packages:["corechart"]});
 			google.charts.setOnLoadCallback(function(){
 				$.when(getData()).done(function(res){
 					console.log(res);
@@ -129,6 +129,25 @@
 						document.location.href="./";
 					}
 				});
+			});*/
+			
+			$.when(getData()).done(function(res){
+				console.log(res);
+				if(res != "false"){
+					var json = jQuery.parseJSON(res);
+					console.log(json);
+					google.charts.load("current", {packages:["corechart"]});
+					google.charts.setOnLoadCallback(function(){
+						drawAcceptedChart(parseInt(json.acceptedNum), parseInt(json.teamNum) - parseInt(json.acceptedNum));
+						drawDuplicateChart(parseInt(json.playerNum), parseInt(json.duplicateNum));
+						drawRemittanceChart(parseInt(json.payedNum), parseInt(json.teamNum) - parseInt(json.payedNum));
+					});
+					$("span#loading-list").fadeOut(200);
+					$("div#list").fadeIn(200);
+				}else{
+					alert("發生錯誤!");
+					document.location.href="./";
+				}
 			});
 			
 			/*function drawCharts(){

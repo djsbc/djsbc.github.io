@@ -60,7 +60,9 @@ var userChanged = function (user) {
 	  setTimeout(function(){
 		  gapiLoaded();
 	  }, 500);
-  }catch(e){}
+  }catch(e){
+	  window.location.reload();
+  }
 };
 
 /**

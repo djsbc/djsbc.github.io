@@ -78,6 +78,7 @@
 				<div class="use-flexbox"><div id="acceptedChart" style="width: 800px; height: 500px;"></div></div>
 				<div class="use-flexbox"><div id="duplicateChart" style="width: 800px; height: 500px;"></div></div>
 				<div class="use-flexbox"><div id="remittanceChart" style="width: 800px; height: 500px;"></div></div>
+				<div class="use-flexbox"><div id="groupChart" style="width: 800px; height: 500px;"></div></div>
 				<div style="height: 50px;"></div>
 			</div>
 		</div>
@@ -141,6 +142,7 @@
 						drawAcceptedChart(parseInt(json.acceptedNum), parseInt(json.teamNum) - parseInt(json.acceptedNum));
 						drawDuplicateChart(parseInt(json.playerNum), parseInt(json.duplicateNum));
 						drawRemittanceChart(parseInt(json.payedNum), parseInt(json.teamNum) - parseInt(json.payedNum));
+						drawGroupChart(parseInt(json.groupNum.healthNum), parseInt(json.groupNum.happinessNum), parseInt(json.groupNum.leisureNum), parseInt(json.groupNum.friendshipNum), parseInt(json.teamNum));
 					});
 					$("span#loading-list").fadeOut(200);
 					$("div#list").fadeIn(200);
@@ -160,7 +162,7 @@
 				var data = google.visualization.arrayToDataTable([
 					['狀態', '隊伍數'],
 					['已通過審核',     accepted],
-					['未通過審核',     unaccepted],
+					['正在等候審核',     unaccepted],
 				]);
 
 				var options = {
@@ -207,12 +209,12 @@
 			function drawRemittanceChart(payed, unpayed) {
 				var data = google.visualization.arrayToDataTable([
 					['項目', '球隊數'],
-					['已匯款',     payed],
-					['尚未匯款',   unpayed],
+					['已填寫匯款資料',     payed],
+					['未填寫匯款資料',   unpayed],
 				]);
 
 				var options = {
-					title: '匯款狀況',
+					title: '匯款資料填寫狀況',
 					backgroundColor: 'rgb(240,240,240)',
 					pieHole: 0.4,
 					titleTextStyle: {
@@ -225,6 +227,33 @@
 				};
 
 				var chart = new google.visualization.PieChart(document.getElementById('remittanceChart'));
+					chart.draw(data, options);
+			}
+			
+			function drawGroupChart(healthNum, happinessNum, leisureNum, friendshipNum, totalNum) {
+				var data = google.visualization.arrayToDataTable([
+					['組別', '球隊數'],
+					['健康',     healthNum],
+					['快樂',   happinessNum],
+					['休閒',   leisureNum],
+					['友誼',   friendshipNum],
+					['未填寫',   (totalNum - (healthNum + happinessNum + leisureNum + friendshipNum))],
+				]);
+
+				var options = {
+					title: '希望參賽組別分布',
+					backgroundColor: 'rgb(240,240,240)',
+					pieHole: 0.4,
+					titleTextStyle: {
+						fontSize: 36,
+						bold: false,
+					},
+					legendTextStyle: {
+						fontSize: 16,
+					},
+				};
+
+				var chart = new google.visualization.ColumnChart(document.getElementById('groupChart'));
 					chart.draw(data, options);
 			}
 			

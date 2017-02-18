@@ -1,0 +1,178 @@
+<html>
+
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>永信HAC健康盃慢速壘球邀請賽 管理系統</title>
+
+<!--<link rel="stylesheet" href="../uikit/css/uikit.docs.min.css" />-->
+<script src="../js/jquery-3.1.1.min.js"></script>
+
+<link rel="stylesheet" href="../uikit/css/uikit.almost-flat.min.css" />
+<script src="../uikit/js/uikit.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!--custom css-->
+<link rel="stylesheet" href="../css/style.css" />
+<link rel="stylesheet" href="../css/table.css" />
+<link rel="stylesheet" href="../css/main-style.css" />
+</head>
+
+<body>
+
+<div class="uk-width-medium-1-1 uk-container-center wrap">
+	<div class="uk-cover-background uk-position-relative indexCoverImage" >
+		<div class="uk-position-cover uk-flex uk-flex-center uk-flex-bottom">
+			<div class="indexCoverTitle">
+				永信HAC健康盃慢速壘球邀請賽<br/>
+				<span style="font-size:60%;line-height:150%;">管理系統 - 修改報名表</span>
+			</div>
+		</div>
+	</div>
+	
+	<div class="uk-width-medium-1-2 uk-container-center main" style="/*background-color:rgb(240,240,240); margin-top:20px;*/">
+		
+		<nav class="uk-navbar" style="margin-top:20px;">
+			<ul id="navUL" class="uk-navbar-nav uk-hidden-small">
+				<li id="nav-home"><a href="./admin.htm">回管理中心</a></li>
+			</ul>
+			<a href="#my-id" class="uk-navbar-toggle uk-visible-small" data-uk-offcanvas="{mode:'slide'}">開啟選單 </a>
+		</nav>
+
+		<div id="my-id" class="uk-offcanvas">
+			<div class="uk-offcanvas-bar">
+				<ul id="navUL" class="uk-navbar-nav">
+					<li id="nav-home-m" style="width:100%;"><a href="./admin.htm">回管理中心</a></li>
+				</ul>
+			</div>
+		</div>
+		
+		<span class="loading-use-flexbox" style="margin-top:100px;" id="loading"><div class="loadingImg"></div></span>
+		
+		<div class="uk-block uk-width-medium-1-1 uk-container-center">
+			<span id="iframeSpan"> </span>
+		</div>
+		<!--<div id="fillFooter" style="height:100px;"></div>-->
+	</div>
+</div>
+
+<div class="tm-footer" style="background-color:rgb(90,90,90);">
+	<div class="uk-container uk-container-center uk-text-center">
+		<div class="uk-panel">
+			
+		</div>
+		<ul class="uk-subnav uk-subnav-line uk-flex-center subnavStyle" style="margin-top:30px;">
+			<li>Copyright 2017 Li-Xain Chen. All rights reserved.</li>
+		</ul>
+	</div>
+</div>
+
+<script language="javascript">
+	function getUrlTag(){
+		var url = decodeURIComponent(location.href), idx = url.indexOf("#")
+		var hash = idx != -1 ? url.substring(idx+1).split("#")[0] : "";
+		return hash;
+	}
+
+	var iframeElement = function(url){
+		return jQuery('<iframe/>', {
+			id: "iframe",
+			src: url,
+			scrolling: "no",
+			frameborder: "0",
+			style: "width: 100%;display:none;",
+		})
+	};
+	
+	function changeIframeHeigh(delay){
+		var iframe = document.getElementById("iframe");
+		if(!delay){
+			delay = 0;
+		}
+		setTimeout(function(){
+			//var h = iframe.contentWindow.document.body.scrollHeight;
+			var h = $(iframe.contentWindow.document).find("html").height();
+			iframe.height = h + "px";
+			//console.log("h " + h);
+			/*if(height){
+				iframe.height = height + "px";
+				//console.log("hei " + height);
+			}else{*/
+				/*$("#iframe").animate({
+					height: h + "px"
+				},50);
+			}*/
+		}, delay);
+	}
+	
+	function changeNav(){
+		$("ul#navUL").find(".uk-active").removeClass("uk-active");
+		var navTag = (getUrlTag() == "") ? "home" : getUrlTag();
+		$("li#nav-" + navTag).addClass("uk-active");
+		$("li#nav-" + navTag + "-m").addClass("uk-active");
+	}
+	
+	function iframeLoaded(iframe){
+		iframe.on('load', function(){
+			$("span#loading").fadeOut(300, function(){
+				$("div#fillFooter").show();
+				changeIframeHeigh();
+				iframe.fadeIn(500);
+			});
+			
+			var contents = $(this).contents();
+			
+			contents.find('body').on('click', function(){
+				changeIframeHeigh();
+			});
+			
+			contents.on('keyup', function(e) {
+				changeIframeHeigh();
+			});
+			
+			contents.on('keydown', function(e) {
+				changeIframeHeigh();
+			});
+			
+			contents.on('keypress', function(e) {
+				changeIframeHeigh();
+			});
+		
+		});
+	}
+	
+	
+	//程式開始
+	//changeNav();
+	
+	var iframe = iframeElement("./modify.htm");
+	$("span#iframeSpan").append(iframe);
+	
+	iframeLoaded(iframe);
+	
+	$(window).on('hashchange', function(e){
+		changeNav();
+		iframe.fadeOut(300);
+		$("span#loading").fadeIn(300);
+		$("div#fillFooter").hide();
+		iframe.remove();
+		iframe = iframeElement("./modify.htm");
+		$("span#iframeSpan").append(iframe);
+		
+		iframeLoaded(iframe);
+	});
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-92002112-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+</body>
+
+</html>

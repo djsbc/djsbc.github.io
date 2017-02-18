@@ -98,6 +98,32 @@
 			</div>
 		</div>
 	</div>
+	
+	<div id="divGen" class="uk-width-medium-4-5 uk-container-center main" style="font-size:16pt;display:none;background-color:rgb(240,240,240); margin-top:20px;">
+		<h2 style="margin-left:5%;">下載或列印所有報名表</h2>
+		<br/><br/>
+		<p style="text-align:center;">
+			若您需要列印所有通過審核的隊伍資料，您可以點選「產生報名總表」。
+			系統將會自動合併所有報名表，並且生成一個pdf檔。
+		</p>
+		<div class="use-flexbox"><p style="line-height:28pt;">
+			使用說明 : 
+			<br/>按下「產生報名總表」後，系統會自動選擇產生一份新的報名總表，或是直接回傳最近生成的報名總表。
+			<br/><b>如果您想確保產生的報名總表完全符合資料庫中的資料(供正式時使用)，請您勾選「強制生成新文件」。</b>
+			<br/><span style="color:red;">請注意，產生報名總表會<b>大量消耗伺服器資源</b>進而影響報名，因此建議在報名離峰時段使用。</span>
+		</p></div>
+		<p id="BtnForm" style="text-align:center;line-height:24pt;">
+			<label><input type="checkbox" style="margin-left:10px" id="force" name="force" value="true"> 強制生成新文件</label><br/>
+			<a id="generatePDF"  class="button button-rounded button-flat-caution" href="javascript:;">產生報名總表</a>
+		</p>
+		<div id="showArea" style="text-align:center;">
+			
+		</div>
+		<div id="linkArea" style="display:none;text-align:center;">
+			<a href="#" target="_blank" class="button button-rounded button-flat-caution" id="download"><i class="uk-icon-cloud-download"></i> 下載pdf檔</a>
+			<a href="#" target="_blank" class="button button-rounded button-flat-caution" id="view"><i class="uk-icon-google"></i> 在Google雲端硬碟中檢視</a>
+		</div>
+	</div>
 </div>
 
 <div class="tm-footer" style="background-color:rgb(90,90,90); margin-top:20px;">
@@ -120,6 +146,7 @@
 		if (auth2.isSignedIn.get()) {
 			$("#unLogin").hide();
 			$("#isLogin").show();
+			$("#divGen").show();
 			var profile = auth2.currentUser.get().getBasicProfile();
 			console.log('ID: ' + profile.getId());
 			console.log('Full Name: ' + profile.getName());
@@ -213,6 +240,34 @@
 		}else{
 			document.location.href="login.htm";
 		}
+		
+		$("a#generatePDF").click(function(){
+			$("#BtnForm").fadeOut(500);
+			$("#showArea").text("請稍候...");
+			var checkbox = $("#force").prop("checked");
+			var dataObjx = new Object();
+			var id_token = googleUser.Zi.id_token;
+			dataObjx.force = checkbox + "";
+			dataObjx.token = id_token;
+			
+			console.log(checkbox);
+			$.get("https://script.google.com/macros/s/AKfycbzasub1a12mCMH8RYerz_e-IiTe7ALhh6zxUBDYQfoHS8b4yLI/exec", 
+					dataObjx,
+					function (result) {
+						$("#showArea").html("");
+						console.log(result);
+						var json = jQuery.parseJSON(result);
+						if(json.stat == "false"){
+							alert("系統發生錯誤!");
+							window.top.location.href = "./"; 
+							return;
+						}
+						$("a#view").attr("href", json.url);
+						$("a#download").attr("href", json.dlPDF);
+						$("#linkArea").fadeIn(500);
+					}
+			);
+		});
 	}
 </script>
 

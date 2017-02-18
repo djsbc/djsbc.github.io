@@ -194,12 +194,12 @@
 					var id_token = googleUser.Zi.id_token;
 					try{ parent.changeIframeHeigh(10); }catch(e){}
 					try{ parent.changeIframeHeigh(510); }catch(e){}
+					$("#show").fadeOut(500, function(){
+						$("#search").fadeIn(500);
+					});
 				}else{
 					window.top.location.href = "./"; 
 				}
-			});
-			$("#show").fadeOut(500, function(){
-				$("#search").fadeIn(500);
 			});
 		}else{
 			window.top.location.href = "./"; 

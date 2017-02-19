@@ -120,8 +120,8 @@
 			
 		</div>
 		<div id="linkArea" style="display:none;text-align:center;">
-			<a href="#" target="_blank" class="button button-rounded button-flat-caution" id="download"><i class="uk-icon-cloud-download"></i> 下載pdf檔</a>
-			<a href="#" target="_blank" class="button button-rounded button-flat-caution" id="view"><i class="uk-icon-google"></i> 在Google雲端硬碟中檢視</a>
+			<a href="#" target="_blank" class="button button-rounded button-flat-caution" id="downloadAll"><i class="uk-icon-cloud-download"></i> 下載pdf檔</a>
+			<a href="#" target="_blank" class="button button-rounded button-flat-caution" id="viewAll"><i class="uk-icon-google"></i> 在Google雲端硬碟中檢視</a>
 		</div>
 	</div>
 </div>
@@ -262,8 +262,8 @@
 							window.top.location.href = "./"; 
 							return;
 						}
-						$("a#view").attr("href", json.url);
-						$("a#download").attr("href", json.dlPDF);
+						$("a#viewAll").attr("href", json.url);
+						$("a#downloadAll").attr("href", json.dlPDF);
 						$("#linkArea").fadeIn(500);
 					}
 			);
